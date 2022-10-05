@@ -18,19 +18,22 @@ fn main() {
     let mut count: u32   = 1;
     while count < limit{
         let mut primeTrue:bool = true;
-        for p in &primesList{
+        for mut p in &mut primesList{
             if count % p.1 == 0 {
                 primeTrue = false;
+                p.1 = p.0;
             }
+            p.1 = p.1 - 1;
         }
         if !primeTrue {
             let temp = Prime((count), (count));
             primesList.push(temp)
         }
+        count = count + 1;
     }
     for p in primesList{
         print!("{}",p.0)
     }
-    count = count + 1;
+    
 
 }
