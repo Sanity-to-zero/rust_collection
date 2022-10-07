@@ -14,24 +14,24 @@ fn main() {
     io::stdin().read_line(&mut input).expect("failed to readline");
     let limit:u32 = input.parse::<u32>().unwrap();
     println!("Hello, world!");
-    let mut primesList: Vec<Prime> = vec![];
+    let mut primes_list: Vec<Prime> = vec![];
     let mut count: u32   = 1;
     while count < limit{
-        let mut primeTrue:bool = true;
-        for mut p in &mut primesList{
+        let mut prime_true:bool = true;
+        for mut p in &mut primes_list{
             if count % p.1 == 0 {
-                primeTrue = false;
+                prime_true = false;
                 p.1 = p.0;
-            }
-            p.1 = p.1 - 1;
+            } else {
+                p.1 = p.1 - 1;}
         }
-        if !primeTrue {
-            let temp = Prime((count), (count));
-            primesList.push(temp)
+        if !prime_true {
+            let temp = Prime(count, count);
+            primes_list.push(temp)
         }
         count = count + 1;
     }
-    for p in primesList{
+    for p in primes_list{
         print!("{}",p.0)
     }
     
