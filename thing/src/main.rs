@@ -10,29 +10,29 @@
 use std::io;
 struct Prime (u32, u32);
 fn main() {
-    let mut input = String::new();
+    /*let mut input = String::new();
     io::stdin().read_line(&mut input).expect("failed to readline");
-    let limit:u32 = input.parse::<u32>().unwrap();
+    let limit:u32 = input.parse::<u32>().unwrap();*/
+    let limit:u32 = 20;
     println!("Hello, world!");
     let mut primes_list: Vec<Prime> = vec![];
     let mut count: u32   = 1;
     while count < limit{
         let mut prime_true:bool = true;
-        for mut p in &mut primes_list{
-            if count % p.1 == 0 {
+        for p in &mut primes_list{
+            if count % p.0 == 0 {
                 prime_true = false;
-                p.1 = p.0;
-            } else {
-                p.1 = p.1 - 1;}
+            }
         }
         if !prime_true {
             let temp = Prime(count, count);
             primes_list.push(temp)
         }
+        println!("{}",prime_true);
         count = count + 1;
     }
     for p in primes_list{
-        print!("{}",p.0)
+        println!("{}",p.0)
     }
     
 
