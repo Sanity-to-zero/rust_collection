@@ -16,6 +16,8 @@ fn main() {
     let limit:u32 = 20;
     println!("Hello, world!");
     let mut primes_list: Vec<Prime> = vec![];
+    let pain: Prime = Prime(2,2);
+    primes_list.push(pain);
     let mut count: u32   = 1;
     while count < limit{
         let mut prime_true:bool = true;
@@ -23,10 +25,11 @@ fn main() {
             if count % p.0 == 0 {
                 prime_true = false;
             }
+            print!("{}",p.0)
         }
-        if !prime_true {
-            let temp = Prime(count, count);
-            primes_list.push(temp)
+        if prime_true {
+            let temp = Prime(count.clone(), count.clone());
+            primes_list.push(temp);
         }
         println!("{}",prime_true);
         count = count + 1;
