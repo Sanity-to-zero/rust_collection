@@ -1,0 +1,16 @@
+cargo:rerun-if-env-changed=SKIA_DEBUG
+HOST: aarch64-apple-darwin
+cargo:rerun-if-env-changed=SKIA_SOURCE_DIR
+cargo:rerun-if-env-changed=FORCE_SKIA_BUILD
+cargo:rerun-if-env-changed=FORCE_SKIA_BINARIES_DOWNLOAD
+TRYING TO DOWNLOAD AND INSTALL SKIA BINARIES: 0.55.0/94c343245161df4a8f67-aarch64-apple-darwin
+cargo:rerun-if-env-changed=SKIA_BINARIES_URL
+  FROM: https://github.com/rust-skia/skia-binaries/releases/download/0.55.0/skia-binaries-94c343245161df4a8f67-aarch64-apple-darwin.tar.gz
+UNPACKING ARCHIVE INTO: /Users/bf000037/Desktop/rust things because lwjgl died/skiamaybe/skiatesthing/target/debug/build/skia-bindings-55f9d9f4c4d9dcd1/out/skia
+INSTALLING BINDINGS
+DOWNLOAD AND INSTALL SUCCEEDED
+cargo:rustc-link-search=/Users/bf000037/Desktop/rust things because lwjgl died/skiamaybe/skiatesthing/target/debug/build/skia-bindings-55f9d9f4c4d9dcd1/out/skia
+cargo:rustc-link-lib=static=skia
+cargo:rustc-link-lib=static=skia-bindings
+cargo:rustc-link-lib=c++
+cargo:rustc-link-lib=framework=ApplicationServices

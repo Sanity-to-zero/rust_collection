@@ -1,0 +1,1 @@
+/Users/bf000037/Desktop/rust\ things\ because\ lwjgl\ died/skiamaybe/skiatesthing/target/debug/skiatesthing: /Users/bf000037/Desktop/rust\ things\ because\ lwjgl\ died/skiamaybe/skiatesthing/src/main.rs

@@ -1,0 +1,11 @@
+/Users/bf000037/Desktop/rust things because lwjgl died/skiamaybe/skiatesthing/target/debug/deps/proc_macro2-690a75cd3ef50981.rmeta: /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/lib.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/marker.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/parse.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/rcvec.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/fallback.rs
+
+/Users/bf000037/Desktop/rust things because lwjgl died/skiamaybe/skiatesthing/target/debug/deps/libproc_macro2-690a75cd3ef50981.rlib: /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/lib.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/marker.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/parse.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/rcvec.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/fallback.rs
+
+/Users/bf000037/Desktop/rust things because lwjgl died/skiamaybe/skiatesthing/target/debug/deps/proc_macro2-690a75cd3ef50981.d: /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/lib.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/marker.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/parse.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/rcvec.rs /Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/fallback.rs
+
+/Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/lib.rs:
+/Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/marker.rs:
+/Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/parse.rs:
+/Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/rcvec.rs:
+/Users/bf000037/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.47/src/fallback.rs:
