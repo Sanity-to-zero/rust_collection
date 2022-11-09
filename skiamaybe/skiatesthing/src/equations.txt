@@ -1,0 +1,7 @@
+
+
+vi a t      ;    d = 'vi' * 't' + 0.5 * 'a' * 't' * 't' 
+d a t       ;    vi = -0.5 * 'a' * 't' + 'd' / 't'; a t d
+vi a d      ;    t = (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a'; 
+vi d t      ;    a = (d - 'vi' * 't') / 0.5 * 't' * 't'
+
