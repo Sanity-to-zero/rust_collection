@@ -5,3 +5,14 @@ d a t       ;    vi = -0.5 * 'a' * 't' + 'd' / 't'; a t d
 vi a d      ;    t = (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a'; 
 vi d t      ;    a = (d - 'vi' * 't') / 0.5 * 't' * 't'
 
+vi a t      ;    vf = 'a' * 't' + 'vi'
+vf a t      ;    vi = 'vf' - 'a' * 't'
+vf vi a     ;    t = ('vf' - 'vi') / 'a'
+vf vi t     ;    a = ('vf' - 'vi') / 't'
+
+vi a d      ;    vf = [sqrt (('vi * vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vf a d      ;    vi = [sqrt (('vf * vf') - (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vf vi a     ;    d = ((vf * vf) - (vi * vi)) / (2 * a)
+vf vi d     ;    a = ((vf * vf) - (vi * vi)) / (2 * d)
+
+vi vf t     ;    d = ('vi' + 'vf') / 2 * 't'
