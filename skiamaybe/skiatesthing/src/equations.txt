@@ -1,18 +1,42 @@
 
 
-vi a t      ;    d = 'vi' * 't' + 0.5 * 'a' * 't' * 't' 
-d a t       ;    vi = -0.5 * 'a' * 't' + 'd' / 't'; a t d
-vi a d      ;    t = (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a'; 
-vi d t      ;    a = (d - 'vi' * 't') / 0.5 * 't' * 't'
+d;  vi a t      ;    'vi' * 't' + 0.5 * 'a' * 't' * 't' 
+d;  vf vi a     ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * a)
+d;  vi vf t     ;    ('vi' + 'vf') * 0.5 * 't'
+d; fe k         ;    'fe' / 'k'
 
-vi a t      ;    vf = 'a' * 't' + 'vi'
-vf a t      ;    vi = 'vf' - 'a' * 't'
-vf vi a     ;    t = ('vf' - 'vi') / 'a'
-vf vi t     ;    a = ('vf' - 'vi') / 't'
+vi; d a t       ;    -0.5 * 'a' * 't' + 'd' / 't'; a t d
+vi; vf a t      ;    'vf' - 'a' * 't'
+vi; vf a d      ;    [sqrt (('vf' * 'vf') - (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vi; vf d t      ;    ('d' * 2 / 't') - 'vf'
 
-vi a d      ;    vf = [sqrt (('vi * vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
-vf a d      ;    vi = [sqrt (('vf * vf') - (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
-vf vi a     ;    d = ((vf * vf) - (vi * vi)) / (2 * a)
-vf vi d     ;    a = ((vf * vf) - (vi * vi)) / (2 * d)
+t;  vi a d      ;    (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a'; 
+t;  vf vi a     ;    ('vf' - 'vi') / 'a'
+t;  vi vf d     ;    'd' * 2 / ('vi' + 'vf')
 
-vi vf t     ;    d = ('vi' + 'vf') / 2 * 't'
+a;  vi d t      ;    (d - 'vi' * 't') / 0.5 * 't' * 't'
+a;  vf vi t     ;    ('vf' - 'vi') / 't'
+a;  vf vi d     ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * d)
+a; fnet m       ;    'fnet' / 'm'
+
+vf; vi a t      ;    'a' * 't' + 'vi'
+vf; vi a d      ;    [sqrt (('vi' * 'vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vf; vi d t      ;    ('d' * 2 / 't') - 'vi'
+
+fg; m           ;    'm' * g
+
+N; fg           ;    'fg'
+N; ff mu        ;    'fs' / 'mu'
+
+m;  fg          ;    'fg' / g
+m; fnet a       ;    'fnet' / 'a'
+
+fnet; m a       ;    'm' * 'a'
+fnet; fa fo     ;    'fa' + 'fo'
+
+ff; mu N        ;    'mu' * 'N'
+mu; ff N        ;    'fs' / 'N'
+fe; k d         ;    'k' * 'd'
+k; fe d         ;    'fe' / 'd'
+fa; fnet fo     ;    'fnet' - 'fo'
+fo; fnet fa     ;    'fnet' - 'fa'
