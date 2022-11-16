@@ -18,11 +18,19 @@ fn main() {
     let equations_file = fs::read_to_string("equations.txt").unwrap();
     let val_to_find = inputs.chars().next().unwrap();
     let mut possible: Vec<String> = vec![];
-    let mut eq_lines = equations_file.lines();
+    let eq_lines = equations_file.lines();
     for line in eq_lines{
         if line.starts_with(val_to_find) {
             possible.push(String::from(line));
         }
+    }
+    let mut v_ins = inputs.split_ascii_whitespace();
+    v_ins.next();
+    for eq in possible{
+        let mut eq = eq.split(';');
+        eq.next();
+        let req = eq.next().unwrap().split_ascii_whitespace();
+        
     }
     // struct equation{
     //     str answer,
