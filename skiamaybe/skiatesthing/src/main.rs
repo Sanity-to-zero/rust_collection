@@ -16,6 +16,7 @@ fn main() {
     \n eg:  'a vi=0 t=10 d=20'");
     io::stdin().read_line(&mut inputs).expect("Could not read line");
     let equations_file = fs::read_to_string("equations.txt");
+    let mut possible: Vec<String> = vec![];
     // struct equation{
     //     str answer,
     //     str[] requirements,
