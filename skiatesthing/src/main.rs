@@ -4,6 +4,7 @@
 
 use std::io;
 use std::fs;
+use std::ptr::eq;
 fn main() {
     println!("Hello, world!");
     
@@ -26,10 +27,23 @@ fn main() {
     }
     let mut v_ins = inputs.split_ascii_whitespace();
     v_ins.next();
+    // eg {vi=0,d=20,t=24}
+    let mut equation = "";
     for eq in possible{
         let mut eq = eq.split(';');
         eq.next();
-        let req = eq.next().unwrap().split_ascii_whitespace();
+        let mut req = eq.clone().next().unwrap().split_ascii_whitespace();
+        // eg. {d,a,t}
+        let mut eq_works: bool = true;
+        while let Some(thingy) = v_ins.next() {
+            if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
+                eq_works = false;
+                break;
+            }
+        }
+        if eq_works {
+            equation = eq.next().clone().unwrap();
+        }
         
     }
     // struct equation{
