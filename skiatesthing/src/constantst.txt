@@ -1,3 +1,6 @@
 g; 9.81 m /s /s
 G; 0.00000000006674 N m m kg kg
 moon-g; 1.62 m /s /s
+c; 300000000
+n-air; 1
+n-water; 1.33

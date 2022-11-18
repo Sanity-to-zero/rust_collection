@@ -3,7 +3,9 @@
 d;  vi a t      ;    'vi' * 't' + 0.5 * 'a' * 't' * 't' 
 d;  vf vi a     ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * a)
 d;  vi vf t     ;    ('vi' + 'vf') * 0.5 * 't'
-d; fe k         ;    'fe' / 'k'
+d;  fe k        ;    'fe' / 'k'
+d;  E m         ;    'E' / ('m' * g)
+d;  W fa        ;    'W' / 'fa'
 
 vi; d a t       ;    -0.5 * 'a' * 't' + 'd' / 't'; a t d
 vi; vf a t      ;    'vf' - 'a' * 't'
@@ -13,6 +15,8 @@ vi; vf d t      ;    ('d' * 2 / 't') - 'vf'
 t;  vi a d      ;    (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a'; 
 t;  vf vi a     ;    ('vf' - 'vi') / 'a'
 t;  vi vf d     ;    'd' * 2 / ('vi' + 'vf')
+t;  W p         ;    'W' / 'p'
+t;  Q I         ;    'Q' / 'I'
 
 a;  vi d t      ;    (d - 'vi' * 't') / 0.5 * 't' * 't'
 a;  vf vi t     ;    ('vf' - 'vi') / 't'
@@ -23,6 +27,9 @@ vf; vi a t      ;    'a' * 't' + 'vi'
 vf; vi a d      ;    [sqrt (('vi' * 'vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
 vf; vi d t      ;    ('d' * 2 / 't') - 'vi'
 
+v; E m          ;    [sqrt ((2 * 'E') / 'm')]
+v; fr wl    ;    'fr' * 'wl'
+
 fg; m           ;    'm' * g
 
 N; fg           ;    'fg'
@@ -30,6 +37,9 @@ N; ff mu        ;    'fs' / 'mu'
 
 m;  fg          ;    'fg' / g
 m; fnet a       ;    'fnet' / 'a'
+m; E h          ;    'E' / (g * 'h')
+m; E v          ;    (2 * 'E') / ('v' * 'v')
+m; E c dT       ;    'E' / ('c' * 'dT')
 
 fnet; m a       ;    'm' * 'a'
 fnet; fa fo     ;    'fa' + 'fo'
@@ -39,4 +49,31 @@ mu; ff N        ;    'fs' / 'N'
 fe; k d         ;    'k' * 'd'
 k; fe d         ;    'fe' / 'd'
 fa; fnet fo     ;    'fnet' - 'fo'
+fa; W d         ;    'W' / 'd'
 fo; fnet fa     ;    'fnet' - 'fa'
+p; W t          ;    'W' / 't'
+dT; E m c       ;    'E' / ('m' * 'c')
+c; E m dT       ;    'E' / ('m' * 'dT')
+fr; wl v        ;    'v' / 'wl'
+wl; v fr        ;    'v' / 'fr'
+Sini; nr Sinr ni;    ('nr' * 'Sinr') / 'ni'
+
+V; I R          ;    'I' * 'R'
+V; I P          ;    'P' / 'I'
+
+R; V I          ;    'V' / 'I'
+
+I; V R          ;    'V' / 'R'
+I; Q t          ;    'Q' / 't'
+I; P V          ;    'P' / 'V'
+
+P; I V          ;    'V' * 'I'
+Q; I t          ;    'I' * 't'
+
+E; m h          ;    'm' * g * 'h'
+E; m v          ;    0.5 * 'm' * 'v' * 'v'
+E; m c dT       ;    'm' * 'c' * 'dT'
+E; Q V          ;    'Q' * 'V'
+
+W; F d          ;    f * d
+W; p t          ;    p * t
