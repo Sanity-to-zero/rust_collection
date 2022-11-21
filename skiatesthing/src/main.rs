@@ -30,9 +30,10 @@ fn main() {
     // eg {vi=0,d=20,t=24}
     let mut equation = "";
     for eq in possible{
-        let mut eq = eq.split(';');
-        eq.next();
-        let mut req = eq.clone().next().unwrap().split_ascii_whitespace();
+        let mut thing: Vec<&str> = eq.split(';').collect();
+        thing.reverse();
+        thing.pop();
+        let mut req = thing.clone().pop().unwrap().split_ascii_whitespace();
         // eg. {d,a,t}
         let mut eq_works: bool = true;
         while let Some(thingy) = v_ins.next() {
@@ -41,10 +42,16 @@ fn main() {
                 break;
             }
         }
-        if eq_works {
-            equation = eq.next().clone().unwrap();
+        if eq_works { //use equation / copy expression to equation variable
+            let mut temp: Vec<&str> = eq.copy().split(';').collect();
+            eq.
+            equation = temp.pop().unwrap();
+            
         }
         
+    }
+    if equation.is_empty() {
+        panic!("no equation found!");
     }
     // struct equation{
     //     str answer,
