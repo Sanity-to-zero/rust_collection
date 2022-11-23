@@ -4,8 +4,6 @@
 
 use std::io;
 use std::fs;
-use std::ptr::eq;
-use std::str::FromStr;
 fn main() {
     println!("Hello, world!");
     
@@ -60,9 +58,11 @@ fn main() {
     
 }
 
-fn check_equation(input: &str, line: Vec<&str>, set_eq: &mut String)->(){
+#[allow(dead_code)]
+fn check_equation(input: &str, line: &mut Vec<&str>, set_eq: &mut String)->(){
     let mut temp = String::new();
-    temp.push_str("thing");
+    temp.push_str(input);
+    temp.push_str(line.pop().unwrap());
     set_eq.push_str(&temp);
     return;
 }
