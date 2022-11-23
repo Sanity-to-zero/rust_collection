@@ -5,6 +5,7 @@
 use std::io;
 use std::fs;
 use std::ptr::eq;
+use std::str::FromStr;
 fn main() {
     println!("Hello, world!");
     
@@ -28,23 +29,27 @@ fn main() {
     let mut v_ins = inputs.split_ascii_whitespace();
     v_ins.next();
     // eg {vi=0,d=20,t=24}
-    let mut equation = "";
+    let mut equation = String::new();
     for eq in possible{
-        let mut eq = eq.split(';');
-        eq.next();
-        let mut req = eq.clone().next().unwrap().split_ascii_whitespace();
+        let mut eq: Vec<&str> = eq.split(';').collect();
+        eq.reverse();
+        eq.pop();
+        let mut req = eq.clone().pop().unwrap().split_ascii_whitespace();
         // eg. {d,a,t}
         let mut eq_works: bool = true;
         while let Some(thingy) = v_ins.next() {
             if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
                 eq_works = false;
-                break;
+                return;
             }
         }
         if eq_works {
-            equation = eq.next().clone().unwrap();
+            equation = String::from(eq.pop().clone().unwrap());
         }
         
+    }
+    if equation.is_empty(){
+        panic!("could not find equation!");
     }
     // struct equation{
     //     str answer,
@@ -52,4 +57,11 @@ fn main() {
     //     str equation
     // }
     
+}
+
+fn check_equation(input: &str, line: Vec<&str>, set_eq: &mut String)->(){
+    let mut temp = String::new();
+    temp.push_str("thing");
+    set_eq.push_str(&temp);
+    return;
 }
