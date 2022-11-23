@@ -51,6 +51,7 @@ fn main() {
     if equation.is_empty(){
         panic!("could not find equation!");
     }
+    
     // struct equation{
     //     str answer,
     //     str[] requirements,
