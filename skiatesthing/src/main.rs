@@ -32,17 +32,22 @@ fn main() {
         let mut eq: Vec<&str> = eq.split(';').collect();
         eq.reverse();
         eq.pop();
-        let mut req = eq.clone().pop().unwrap().split_ascii_whitespace();
+        let req = eq.clone().pop().unwrap().split_ascii_whitespace();
+        let temp_vec:Vec<&str> = v_ins.clone().collect();
+        let temp_req:Vec<&str> = req.collect();
         // eg. {d,a,t}
-        let mut eq_works: bool = true;
-        while let Some(thingy) = v_ins.next() {
-            if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
-                eq_works = false;
-                return;
-            }
-        }
-        if eq_works {
-            equation = String::from(eq.pop().clone().unwrap());
+        let any_works: bool = check_equation(&temp_vec, &temp_req);
+        
+        // TODO: switch with fn
+        // while let Some(thingy) = v_ins.next() {
+        //     if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
+        //         eq_works = false;
+        //         return;
+        //     }
+        // }
+        if any_works {
+            equation.push_str(eq.pop().clone().unwrap());
+            break;
         }
         
     }
@@ -58,23 +63,21 @@ fn main() {
     
 }
 
-#[allow(dead_code)]
-fn check_equation(input: &Vec<&str>, line: &Vec<&str>, set_eq: &mut String)-> bool{
-    let mut temp = String::new();
-    let mut var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
+
+fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
+    let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
     let mut t2 = input.clone();
     let mut works = true;
     t2.reverse();
     for var in var_vec{
         let cur = t2.pop().unwrap();
-        if !var.split('=').next().unwrap().eq(var) {
+        if !var.split('=').next().unwrap().eq(cur) {
             works = false;
             break;
         }
     }
     if works {
-        set_eq.push_str(&temp);
-    }
+        return true;
+    } else {return false;}
     
-    return true;
 }
