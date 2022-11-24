@@ -59,10 +59,22 @@ fn main() {
 }
 
 #[allow(dead_code)]
-fn check_equation(input: &str, line: &mut Vec<&str>, set_eq: &mut String)->(){
+fn check_equation(input: &Vec<&str>, line: &Vec<&str>, set_eq: &mut String)-> bool{
     let mut temp = String::new();
-    temp.push_str(input);
-    temp.push_str(line.pop().unwrap());
-    set_eq.push_str(&temp);
-    return;
+    let mut var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
+    let mut t2 = input.clone();
+    let mut works = true;
+    t2.reverse();
+    for var in var_vec{
+        let cur = t2.pop().unwrap();
+        if !var.split('=').next().unwrap().eq(var) {
+            works = false;
+            break;
+        }
+    }
+    if works {
+        set_eq.push_str(&temp);
+    }
+    
+    return true;
 }
