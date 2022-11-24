@@ -38,33 +38,26 @@ fn main() {
         // eg. {d,a,t}
         let any_works: bool = check_equation(&temp_vec, &temp_req);
         
-        // TODO: switch with fn
-        // while let Some(thingy) = v_ins.next() {
-        //     if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
-        //         eq_works = false;
-        //         return;
-        //     }
-        // }
+        // exits loop when equation is found to be more efficient
         if any_works {
             equation.push_str(eq.pop().clone().unwrap());
             break;
         }
         
     }
+
+    // stops program if equation is not found
     if equation.is_empty(){
         panic!("could not find equation!");
     }
     
-    // struct equation{
-    //     str answer,
-    //     str[] requirements,
-    //     str equation
-    // }
-    
+    // evaluate expression
 }
 
 
 fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
+    // returns true if given values match needed values
+    
     let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
     let mut t2 = input.clone();
     let mut works = true;
