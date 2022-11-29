@@ -17,14 +17,9 @@ fn main() {
     \n eg:  'a vi=0 t=10 d=20'");
     io::stdin().read_line(&mut inputs).expect("Could not read line");
     let equations_file = fs::read_to_string("equations.txt").unwrap();
-    let val_to_find = inputs.chars().next().unwrap();
-    let mut possible: Vec<String> = vec![];
-    let eq_lines = equations_file.lines();
-    for line in eq_lines{
-        if line.starts_with(val_to_find) {
-            possible.push(String::from(line));
-        }
-    }
+    let val_to_find = inputs.split(';').next().unwrap();
+    let possible: Vec<String> = get_possible(equations_file, val_to_find);
+    
     let mut v_ins = inputs.split_ascii_whitespace();
     v_ins.next();
     // eg {vi=0,d=20,t=24}
@@ -59,4 +54,30 @@ fn main() {
     //     str equation
     // }
     
+}
+
+#[allow(unused)]
+fn get_possible(file: String, pattern: &str) -> Vec<String>{
+    let temp = file.lines();
+    let mut possible = Vec::new();
+    for line in temp{
+        if line.starts_with(pattern) {
+            possible.push(String::from(line));
+        }
+    }
+    return possible;
+}
+
+#[allow(unused)]
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_eq_checker(){
+        let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
+        let file = fs::read_to_string("equations.txt").unwrap();
+        let poss = get_possible(file, "a");
+        
+    }
 }
