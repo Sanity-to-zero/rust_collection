@@ -4,7 +4,6 @@
 
 use std::io;
 use std::fs;
-use std::ptr::eq;
 fn main() {
     println!("Hello, world!");
     
@@ -19,40 +18,54 @@ fn main() {
     let equations_file = fs::read_to_string("equations.txt").unwrap();
     let val_to_find = inputs.split(';').next().unwrap();
     let possible: Vec<String> = get_possible(equations_file, val_to_find);
-    
     let mut v_ins = inputs.split_ascii_whitespace();
     v_ins.next();
     // eg {vi=0,d=20,t=24}
-    let mut equation = "";
+    let mut equation = String::new();
     for eq in possible{
-        let mut thing: Vec<&str> = eq.split(';').collect();
-        thing.reverse();
-        thing.pop();
-        let mut req = thing.clone().pop().unwrap().split_ascii_whitespace();
+        let mut eq: Vec<&str> = eq.split(';').collect();
+        eq.reverse();
+        eq.pop();
+        let req = eq.clone().pop().unwrap().split_ascii_whitespace();
+        let temp_vec:Vec<&str> = v_ins.clone().collect();
+        let temp_req:Vec<&str> = req.collect();
         // eg. {d,a,t}
-        let mut eq_works: bool = true;
-        while let Some(thingy) = v_ins.next() {
-            if !thingy.split('=').next().unwrap().eq(req.next().unwrap()) {
-                eq_works = false;
-                break;
-            }
-        }
-        if eq_works { //use equation / copy expression to equation variable
-            let mut temp: Vec<&str> = eq.copy().split(';').collect();
-            eq.
-            equation = temp.pop().unwrap();
-            
+        let any_works: bool = check_equation(&temp_vec, &temp_req);
+        
+        // exits loop when equation is found to be more efficient
+        if any_works {
+            equation.push_str(eq.pop().clone().unwrap());
+            break;
         }
         
     }
-    if equation.is_empty() {
-        panic!("no equation found!");
+
+    // stops program if equation is not found
+    if equation.is_empty(){
+        panic!("could not find equation!");
     }
-    // struct equation{
-    //     str answer,
-    //     str[] requirements,
-    //     str equation
-    // }
+    
+    // evaluate expression
+}
+
+
+fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
+    // returns true if given values match needed values
+    
+    let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
+    let mut t2 = input.clone();
+    let mut works = true;
+    t2.reverse();
+    for var in var_vec{
+        let cur = t2.pop().unwrap();
+        if !var.split('=').next().unwrap().eq(cur) {
+            works = false;
+            break;
+        }
+    }
+    if works {
+        return true;
+    } else {return false;}
     
 }
 
@@ -81,3 +94,4 @@ mod tests {
         
     }
 }
+
