@@ -57,7 +57,7 @@ fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
     t2.sort();
     let mut works = true;
     t2.reverse();
-    // todo: sort vecs so it can work in any order
+    // todo: sort vecs so it can work in any order or alt check through given and see if var exist then pop from given
     for var in var_vec{
         let cur = t2.pop().unwrap();
         if !var.split('=').next().unwrap().eq(cur) {
