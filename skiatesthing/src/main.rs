@@ -54,8 +54,10 @@ fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
     
     let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
     let mut t2 = input.clone();
+    t2.sort();
     let mut works = true;
     t2.reverse();
+    // todo: sort vecs so it can work in any order
     for var in var_vec{
         let cur = t2.pop().unwrap();
         if !var.split('=').next().unwrap().eq(cur) {
@@ -87,9 +89,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_poss(){
+    fn test_poss(){ //Functional
         let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
-        let file = fs::read_to_string("skiatesthing/src/equations.txt").unwrap();
+        // Fixed: functional
+        let file = fs::read_to_string("src/equations.txt").unwrap();
         let mut poss = get_possible(file, "a");
         let expected_vec: Vec<&str> = vec!["a;  vi d t      ;    (d - 'vi' * 't') / 0.5 * 't' * 't'","a;  vf vi t     ;    ('vf' - 'vi') / 't'","a;  vf vi d     ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * d)","a; fnet m       ;    'fnet' / 'm'"];
         assert_eq!(expected_vec, poss);
