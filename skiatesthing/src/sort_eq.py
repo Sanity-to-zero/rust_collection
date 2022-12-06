@@ -1,5 +1,5 @@
 
-with open("src/equations.txt", "r") as f:
+with open("equations.txt", "r") as f:
     lines = f.readlines()
     collect = open("out.txt", "w")
     for l in lines:
