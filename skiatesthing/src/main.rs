@@ -89,10 +89,11 @@ mod tests {
     use super::*;
 
     #[test]
+    #[ignore = "functional"]
     fn test_poss(){ //Functional
         let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
         // Fixed: functional
-        let file = fs::read_to_string("src/equations.txt").unwrap();
+        let file = fs::read_to_string("src/equations1.txt").unwrap();
         let mut poss = get_possible(file, "a");
         let expected_vec: Vec<&str> = vec!["a;  vi d t       ;    (d - 'vi' * 't') / 0.5 * 't' * 't'","a;  vf vi t      ;    ('vf' - 'vi') / 't'","a;  vf vi d      ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * d)","a;  fnet m       ;    'fnet' / 'm'"];
         assert_eq!(expected_vec, poss);

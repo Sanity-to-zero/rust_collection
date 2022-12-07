@@ -1,5 +1,4 @@
 
-
 d;                   a  t  vi ;    'vi' * 't' + 0.5 * 'a' * 't' * 't' 
 d;                 a  vf  vi ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * a)
 d;                 t  vf  vi ;    ('vi' + 'vf') * 0.5 * 't'
