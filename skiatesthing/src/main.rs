@@ -56,11 +56,11 @@ fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
     let mut t2 = input.clone();
     t2.sort();
     let mut works = true;
-    t2.reverse();
+    print!("{:#?}",t2);
     // todo: sort vecs so it can work in any order or alt check through given and see if var exist then pop from given
     for var in var_vec{
         let cur = t2.pop().unwrap();
-        if !var.split('=').next().unwrap().eq(cur) {
+        if var.split('=').next().unwrap().eq(cur) {
             works = false;
             break;
         }
@@ -102,12 +102,13 @@ mod tests {
     #[test]
     fn test_eq(){
         let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
-        let mut eq: Vec<&str> = "a;  vi d t      ;    (d - 'vi' * 't') / 0.5 * 't' * 't'".split(';').collect();
-        eq.reverse();
+        let test2_in: Vec<&str> = vec!["vf=0","t=10","d=20"];
+        let mut eq: Vec<&str> = "a; d  t  vi ;    (d - 'vi' * 't') / 0.5 * 't' * 't'".split(';').collect();
         eq.pop();
         let req = eq.clone().pop().unwrap().split_ascii_whitespace();
         let temp_req:Vec<&str> = req.collect();
-        assert_eq!(check_equation(&test_in, &temp_req), true)
+        assert_eq!(check_equation(&test_in, &temp_req), true);
+        assert_eq!(check_equation(&test2_in, &temp_req), false);
     }
 }
 
