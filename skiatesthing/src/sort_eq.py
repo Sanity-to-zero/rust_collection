@@ -10,7 +10,7 @@ with open("equations.txt", "r") as f:
             collect.write("\n")
             continue
         else:
-            vars = l.split(";")[1].split(" ")
+            vars = l.split(";")[1].strip().split(" ")
             buff += l.split(";")[0] + ";"
             vars = sorted(vars)
             for s in vars:

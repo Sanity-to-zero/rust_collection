@@ -1,77 +1,77 @@
 
 
-d;                   a  t  vi ;    'vi' * 't' + 0.5 * 'a' * 't' * 't' 
-d;                 a  vf  vi ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * a)
-d;                 t  vf  vi ;    ('vi' + 'vf') * 0.5 * 't'
-d;                       fe  k ;    'fe' / 'k'
-d;                         E  m ;    'E' / ('m' * g)
-d;                       W  fa ;    'W' / 'fa'
+d; a  t  vi ;    'vi' * 't' + 0.5 * 'a' * 't' * 't' 
+d; a  vf  vi ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * a)
+d; t  vf  vi ;    ('vi' + 'vf') * 0.5 * 't'
+d; fe  k ;    'fe' / 'k'
+d; E  m ;    'E' / ('m' * g)
+d; W  fa ;    'W' / 'fa'
 
-vi;                   a  d  t ;    -0.5 * 'a' * 't' + 'd' / 't'vi;                 a  t  vf ;    'vf' - 'a' * 't'
-vi;                 a  d  vf ;    [sqrt (('vf' * 'vf') - (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
-vi;                 d  t  vf ;    ('d' * 2 / 't') - 'vf'
+vi; a  d  t ;    -0.5 * 'a' * 't' + 'd' / 't'vi; a  t  vf ;    'vf' - 'a' * 't'
+vi; a  d  vf ;    [sqrt (('vf' * 'vf') - (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vi; d  t  vf ;    ('d' * 2 / 't') - 'vf'
 
-t;                   a  d  vi ;    (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a't;                 a  vf  vi ;    ('vf' - 'vi') / 'a'
-t;                 d  vf  vi ;    'd' * 2 / ('vi' + 'vf')
-t;                         W  p ;    'W' / 'p'
-t;                         I  Q ;    'Q' / 'I'
+t; a  d  vi ;    (-1 * 'vi' + [sqrt ('vi' * 'vi' - 2 * 'a')]) / 'a't; a  vf  vi ;    ('vf' - 'vi') / 'a'
+t; d  vf  vi ;    'd' * 2 / ('vi' + 'vf')
+t; W  p ;    'W' / 'p'
+t; I  Q ;    'Q' / 'I'
 
-a;                   d  t  vi ;    (d - 'vi' * 't') / 0.5 * 't' * 't'
-a;                 t  vf  vi ;    ('vf' - 'vi') / 't'
-a;                 d  vf  vi ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * d)
-a;                   fnet  m ;    'fnet' / 'm'
+a; d  t  vi ;    (d - 'vi' * 't') / 0.5 * 't' * 't'
+a; t  vf  vi ;    ('vf' - 'vi') / 't'
+a; d  vf  vi ;    (('vf' * 'vf') - ('vi' * 'vi')) / (2 * d)
+a; fnet  m ;    'fnet' / 'm'
 
-vf;                 a  t  vi ;    'a' * 't' + 'vi'
-vf;                 a  d  vi ;    [sqrt (('vi' * 'vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
-vf;                 d  t  vi ;    ('d' * 2 / 't') - 'vi'
+vf; a  t  vi ;    'a' * 't' + 'vi'
+vf; a  d  vi ;    [sqrt (('vi' * 'vi') + (2 * 'a' * 'd'))] * [abs 'a'] / 'a'
+vf; d  t  vi ;    ('d' * 2 / 't') - 'vi'
 
-v;                         E  m ;    [sqrt ((2 * 'E') / 'm')]
-v;                     fr  wl ;    'fr' * 'wl'
+v; E  m ;    [sqrt ((2 * 'E') / 'm')]
+v; fr  wl ;    'fr' * 'wl'
 
-fg;                           m ;    'm' * g
+fg; m ;    'm' * g
 
-N;                           fg ;    'fg'
-N;                     ff  mu ;    'fs' / 'mu'
+N; fg ;    'fg'
+N; ff  mu ;    'fs' / 'mu'
 
-m;                           fg ;    'fg' / g
-m;                   a  fnet ;    'fnet' / 'a'
-m;                         E  h ;    'E' / (g * 'h')
-m;                         E  v ;    (2 * 'E') / ('v' * 'v')
-m;                   E  c  dT ;    'E' / ('c' * 'dT')
+m; fg ;    'fg' / g
+m; a  fnet ;    'fnet' / 'a'
+m; E  h ;    'E' / (g * 'h')
+m; E  v ;    (2 * 'E') / ('v' * 'v')
+m; E  c  dT ;    'E' / ('c' * 'dT')
 
-fnet;                 a  m ;    'm' * 'a'
-fnet;             fa  fo ;    'fa' + 'fo'
+fnet; a  m ;    'm' * 'a'
+fnet; fa  fo ;    'fa' + 'fo'
 
-ff;                   N  mu ;    'mu' * 'N'
-mu;                   N  ff ;    'fs' / 'N'
-fe;                     d  k ;    'k' * 'd'
-k;                     d  fe ;    'fe' / 'd'
-fa;             fnet  fo ;    'fnet' - 'fo'
-fa;                     W  d ;    'W' / 'd'
-fo;             fa  fnet ;    'fnet' - 'fa'
-p;                       W  t ;    'W' / 't'
-dT;                 E  c  m ;    'E' / ('m' * 'c')
-c;                 E  dT  m ;    'E' / ('m' * 'dT')
-fr;                   v  wl ;    'v' / 'wl'
-wl;                   fr  v ;    'v' / 'fr'
-Sini;   Sinr  ni  nr ;    ('nr' * 'Sinr') / 'ni'
+ff; N  mu ;    'mu' * 'N'
+mu; N  ff ;    'fs' / 'N'
+fe; d  k ;    'k' * 'd'
+k; d  fe ;    'fe' / 'd'
+fa; fnet  fo ;    'fnet' - 'fo'
+fa; W  d ;    'W' / 'd'
+fo; fa  fnet ;    'fnet' - 'fa'
+p; W  t ;    'W' / 't'
+dT; E  c  m ;    'E' / ('m' * 'c')
+c; E  dT  m ;    'E' / ('m' * 'dT')
+fr; v  wl ;    'v' / 'wl'
+wl; fr  v ;    'v' / 'fr'
+Sini; Sinr  ni  nr ;    ('nr' * 'Sinr') / 'ni'
 
-V;                       I  R ;    'I' * 'R'
-V;                       I  P ;    'P' / 'I'
+V; I  R ;    'I' * 'R'
+V; I  P ;    'P' / 'I'
 
-R;                       I  V ;    'V' / 'I'
+R; I  V ;    'V' / 'I'
 
-I;                       R  V ;    'V' / 'R'
-I;                       Q  t ;    'Q' / 't'
-I;                       P  V ;    'P' / 'V'
+I; R  V ;    'V' / 'R'
+I; Q  t ;    'Q' / 't'
+I; P  V ;    'P' / 'V'
 
-P;                       I  V ;    'V' * 'I'
-Q;                       I  t ;    'I' * 't'
+P; I  V ;    'V' * 'I'
+Q; I  t ;    'I' * 't'
 
-E;                       h  m ;    'm' * g * 'h'
-E;                       m  v ;    0.5 * 'm' * 'v' * 'v'
-E;                 c  dT  m ;    'm' * 'c' * 'dT'
-E;                       Q  V ;    'Q' * 'V'
+E; h  m ;    'm' * g * 'h'
+E; m  v ;    0.5 * 'm' * 'v' * 'v'
+E; c  dT  m ;    'm' * 'c' * 'dT'
+E; Q  V ;    'Q' * 'V'
 
-W;                       F  d ;    f * d
-W;                       p  t ;    p * t
+W; F  d ;    f * d
+W; p  t ;    p * t
