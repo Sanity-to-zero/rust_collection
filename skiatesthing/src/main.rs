@@ -49,29 +49,33 @@ fn main() {
 }
 
 
-fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
+fn check_equation(line: &Vec<&str>, input: &Vec<&str>   )-> bool{
     // returns true if given values match needed values
     
-    let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
-    let mut t2 = input.clone();
-    t2.sort();
-    t2.reverse();
-    let mut works = true;
-    print!("{:#?}",t2);
-    // todo: sort vecs so it can work in any order or alt check through given and see if var exist then pop from given
+    let var_vec = input.clone().pop().unwrap().split_ascii_whitespace();
+    let mut t2 = line.clone();
+    t2.sort();// asc order
+    t2.reverse();// desc order
+    
+    print!("{:#?}",t2);// debugging purpose only
+    //sorts vecs so it can work in any order
+    let mut counter = 0;
     for var in var_vec{
-        let t3 = var.split('=').next().unwrap();
+        counter += 1;
+        print!("{}",var);
+        let t3 = var.clone().split('=').next().unwrap();
         let cur = t2.pop().unwrap();
-        print!("{:#?}",cur);
-        println!("{:#?}",t3);
+        print!("{:#?}",cur);// debug
+        println!("{:#?}",t3);// debug
         if !t3.eq(cur) {
-            works = false;
-            break;
+            return false;
         }
     }
-    if works {
-        return true;
-    } else {return false;}
+    while let  =  {
+        
+    }
+    print!("{}",counter);
+    return true;
     
 }
 
@@ -104,16 +108,19 @@ mod tests {
         
     }
     #[test]
-    #[ignore = "functional"]
+    //#[ignore = "functional"]
     fn test_eq(){
         let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
         let test2_in: Vec<&str> = vec!["vf=0","t=10","d=20"];
+        let t3_in: Vec<&str> = vec!["fa=1 W=20"];
+        let mut capitals: Vec<&str> = "d;                       W  fa ;    'W' / 'fa'".split(';').collect();
         let mut eq: Vec<&str> = "a; d  t  vi ;    (d - 'vi' * 't') / 0.5 * 't' * 't'".split(';').collect();
         eq.pop();
         let req = eq.clone().pop().unwrap().split_ascii_whitespace();
         let temp_req:Vec<&str> = req.collect();
         assert_eq!(check_equation(&temp_req, &test_in), true);
-        assert_eq!(check_equation(&test2_in, &temp_req), false);
+        assert_eq!(check_equation(&temp_req, &test2_in), false);
+        assert_eq!(check_equation(&capitals, &t3_in), true);
     }
 }
 
