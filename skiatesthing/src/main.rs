@@ -50,6 +50,7 @@ fn main() {
 
 
 fn check_equation(line: &Vec<&str>, input: &Vec<&str>   )-> bool{
+fn check_equation(line: &Vec<&str>, input: &Vec<&str>   )-> bool{
     // returns true if given values match needed values
     
     //let mut var_vec: Vec<&str> = line.clone().pop().unwrap().split_ascii_whitespace().collect();
