@@ -49,29 +49,26 @@ fn main() {
 }
 
 
-fn check_equation(input: &Vec<&str>, line: &Vec<&str>   )-> bool{
+fn check_equation(line: &Vec<&str>, input: &Vec<&str>   )-> bool{
     // returns true if given values match needed values
     
-    let var_vec = line.clone().pop().unwrap().split_ascii_whitespace();
+    //let mut var_vec: Vec<&str> = line.clone().pop().unwrap().split_ascii_whitespace().collect();
     let mut t2 = input.clone();
     t2.sort();
     t2.reverse();
-    let mut works = true;
-    print!("{:#?}",t2);
+    
+    print!("{:#?}",line);
     // todo: sort vecs so it can work in any order or alt check through given and see if var exist then pop from given
-    for var in var_vec{
+    for var in line{
         let t3 = var.split('=').next().unwrap();
-        let cur = t2.pop().unwrap();
+        let cur = t2.pop().unwrap().split('=').next().unwrap();
         print!("{:#?}",cur);
         println!("{:#?}",t3);
         if !t3.eq(cur) {
-            works = false;
-            break;
+            return false;
         }
     }
-    if works {
-        return true;
-    } else {return false;}
+    return true;
     
 }
 
@@ -104,16 +101,22 @@ mod tests {
         
     }
     #[test]
-    #[ignore = "functional"]
+    
     fn test_eq(){
         let test_in: Vec<&str> = vec!["vi=0","t=10","d=20"];
         let test2_in: Vec<&str> = vec!["vf=0","t=10","d=20"];
+        let t3_in: Vec<&str> = vec!["fa=29","W=34"];
         let mut eq: Vec<&str> = "a; d  t  vi ;    (d - 'vi' * 't') / 0.5 * 't' * 't'".split(';').collect();
+        let mut e2: Vec<&str> =  "d;                       W  fa ;    'W' / 'fa'".split(';').collect();
+        e2.pop();
         eq.pop();
+        let l2:Vec<&str> = e2.clone().pop().unwrap().split_ascii_whitespace().collect();
         let req = eq.clone().pop().unwrap().split_ascii_whitespace();
         let temp_req:Vec<&str> = req.collect();
+        print!("{:#?}",test2_in);
         assert_eq!(check_equation(&temp_req, &test_in), true);
-        assert_eq!(check_equation(&test2_in, &temp_req), false);
+        assert_eq!(check_equation(&temp_req, &test2_in), false);
+        assert_eq!(check_equation(&l2, &t3_in),true);
     }
 }
 
