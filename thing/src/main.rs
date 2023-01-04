@@ -8,7 +8,7 @@
 //if all empty, add to list of primes and key/value
 
 
-use std::io;
+use std::io::{self, Read};
 #[allow(unused)]
 fn main() {
     let mut width: String = String::new();
@@ -26,8 +26,12 @@ fn main() {
 #[allow(dead_code)]
 #[allow(unused)]
 fn get_data(size :u32)->(u32, u32){
+    let mut row_counter: Vec<u32> = vec![];
+    let mut column_counter: Vec<u32> = vec![];
     for n in 1..size{
-        //
+        let mut cur = String::new();
+        io::stdin().read_line(&mut cur).expect("failed to read line");
+        cur = cur.split_ascii_whitespace().collect();
     }
     return (0,0);
 }
