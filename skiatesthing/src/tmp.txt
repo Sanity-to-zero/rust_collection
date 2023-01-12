@@ -1,0 +1,55 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.lang.Object;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("");
+        Scanner scanner = new Scanner(file);
+    }
+    public Pair closest_edge(point p, point size){
+        float halfc = Float.intBitsToFloat(Float.floatToIntBits((float) size.c) >> 1);
+        float halfr = Float.intBitsToFloat(Float.floatToIntBits((float) size.r) >> 1);
+        Pair side = new Pair((p.c > halfc),(p.r > halfr));
+        point magnitude = new point(
+                ((boolean) side.a ? p.c - size.c : p.c),
+                ((boolean) side.b ? p.r - size.r : p.r)
+        );
+        // return value will be magnitude from side and side: true = right false = left
+                                                          //  false = down true = up
+        return new Pair(magnitude,side);
+    }
+
+}
+class point{
+    int c;
+    int r;
+    public point(int c,int r){
+        // constructors
+        this.c = c;
+        this.r = r;
+    }
+    public point(String c, String r){
+        this.c = Integer.parseInt(c);
+        this.r = Integer.parseInt(r);
+    }
+    private point copy(point p){
+        this.c = p.c;
+        this.r = p.r;
+        return this;
+    }
+}
+class Pair{
+    Object a;
+    Object b;
+    public Pair(Object a, Object b){
+        this.a = a;
+        this.b = b;
+    }
+    public Pair copy(Pair from){
+        this.a = from.a;
+        this.b = from.b;
+        return this;
+    }
+}
