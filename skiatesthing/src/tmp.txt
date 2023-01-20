@@ -1,26 +1,98 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.lang.Object;
+package ohno;
 
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("");
-        Scanner scanner = new Scanner(file);
+    Vector<Integer> input;
+    public static void main(String[] args) {
+         long startTime = System.nanoTime();
+        Main main = new Main();
+        //System.out.println(main.good_triangles(input,circumference));
+        main.input = new Vector<Integer>();
+        try {
+            FileReader file = new FileReader("/Users/bf000037/IdeaProjects/ccc/src/main/resources/s4.1-06.in");
+            BufferedReader reader = new BufferedReader(file);
+            String specs = reader.readLine().split(" ")[1].strip();
+            String inputs = reader.readLine();
+            String[] array = inputs.split(" ");
+            List<String> distinct = Arrays.stream(array).distinct().collect(Collectors.toList()); // <- for use in ccc
+            Vector distinct_V = new Vector<String>();
+            distinct_V.addAll(distinct);
+            int whyisthiscursed = Integer.parseInt(specs);
+            for (Object item : distinct_V){
+                main.input.add(Integer.parseInt((String) item));
+            }
+            Collections.sort(main.input);
+            System.out.println(main.input);
+            int things = main.good_triangles(distinct_V, whyisthiscursed);
+            System.out.println(things);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println(totalTime);
     }
-    public Pair closest_edge(point p, point size){
-        float halfc = Float.intBitsToFloat(Float.floatToIntBits((float) size.c) >> 1);
-        float halfr = Float.intBitsToFloat(Float.floatToIntBits((float) size.r) >> 1);
-        Pair side = new Pair((p.c > halfc),(p.r > halfr));
-        point magnitude = new point(
-                ((boolean) side.a ? p.c - size.c : p.c),
-                ((boolean) side.b ? p.r - size.r : p.r)
-        );
-        // return value will be magnitude from side and side: true = right false = left
-                                                          //  false = down true = up
-        return new Pair(magnitude,side);
-    }
+    public int good_triangles(Vector<Integer> input, int Circumference) {
+        int counter = 0;
+        final int circumference_half = Circumference >> 1;
+        ListIterator iterator = input.listIterator();
+        int cur;
+        do {
+            int cur_index = iterator.nextIndex();
+            cur = Integer.parseInt((String) iterator.next());
+            ListIterator secondaryIterator = input.listIterator(cur_index);
+            int cur_second;
+            do {
+                cur_second = Integer.parseInt((String) secondaryIterator.next());
+                int lowest_index = find_limit(cur + circumference_half,false,0,circumference_half-1);
+                int highest_index = find_limit(Circumference- cur_second,true,0,Circumference-1);
+                if (lowest_index == highest_index || lowest_index == -1 || highest_index == -1){
+                    continue;
+                }
+                counter += highest_index - lowest_index;
+                // find 3rds
+            } while (cur_second <= circumference_half + cur && secondaryIterator.hasNext());
 
+        } while (cur <= circumference_half);
+        return 1;
+    }
+    public int find_limit(int limit, boolean greater, int low, int high) {
+        int midpoint = low + ((high - low) >> 1);
+        int mid_element = input.get(midpoint);
+        if (midpoint >= high || (high - low) >> 1 == 0 || midpoint >= input.size() - 1){
+            if (greater ? input.get(midpoint) < limit : input.get(midpoint) > limit){
+                return midpoint - 1;
+            } else return -1;
+        }
+        if (mid_element == limit){
+            return midpoint;
+        } else if (mid_element < limit){
+            if (input.get(midpoint+1) > limit){
+                if (greater){
+                    return midpoint;
+                } else {
+                    return midpoint+1;
+                }
+            } else {
+                return find_limit(limit,greater,midpoint,high);// aaaaaaaaaaa stack overflow error
+            }
+        } else if (mid_element > limit) {
+            if ((input.get(midpoint-1))<limit){
+                if (greater){
+                    return midpoint-1;
+                } else {
+                    return midpoint;
+                }
+            }else {
+                return find_limit(limit,greater,low,midpoint);
+            }
+        }
+        return -1;
+    }
 }
 class point{
     int c;
@@ -53,3 +125,22 @@ class Pair{
         return this;
     }
 }
+//    public static point nearest_edge(int c, int r, int size){
+//        // check diagonal
+//        if (c == r || size + 1 == r + c) {
+//            // if diagonal
+//            int chalf = Math.abs(c - size);
+//            int rhalf = Math.abs(r - size);
+//            int dir=0;
+//            boolean left;
+//            boolean low;
+//            if (chalf >= c) {chalf = c; left = true;} else {left = false;}
+//            if (rhalf >= r) {rhalf = r; low = false;} else {low = true;}
+//            return new point(chalf,0);
+//        }
+//        return new point(23,0);
+//
+//    }
+//    public int intabs(int i){
+//        return i ^ (1 >> 1);
+//    }
