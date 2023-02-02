@@ -1,12 +1,11 @@
-package ohno;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 public class Main {
     Vector<Integer> input;
+    double halfway;
     public static void main(String[] args) {
-         long startTime = System.nanoTime();
+        long startTime = System.nanoTime();
         Main main = new Main();
         //System.out.println(main.good_triangles(input,circumference));
         main.input = new Vector<Integer>();
@@ -25,6 +24,7 @@ public class Main {
             }
             Collections.sort(main.input);
             System.out.println(main.input);
+            main.halfway = whyisthiscursed / 2.0;
             int things = main.good_triangles(distinct_V, whyisthiscursed);
             System.out.println(things);
         } catch (FileNotFoundException e) {
@@ -93,6 +93,45 @@ public class Main {
         }
         return -1;
     }
+    public int find_lim(float limit, boolean mid_or_end) {
+        if (mid_or_end){
+            int midpoint = (int) Math.floor(input.size() / 2.0);
+            if (input.get(midpoint) < limit) {
+                int counter = 1;
+                while (midpoint + counter < input.size() && input.get(midpoint + counter) < limit ) {
+                    counter++;
+                }
+                if (midpoint + counter >= input.size()){
+                    return -1;
+                }
+                return midpoint + counter;
+            } else if (input.get(midpoint) == limit) {
+                return midpoint;
+            } else {
+                int counter = 1;
+                while (input.get(midpoint - counter) > limit){
+                    counter++;
+                }
+                return midpoint - counter;
+            }
+        } else {
+            if (input.get(input.size() - 1) < limit) {
+                return -1;
+            } else if (input.get(input.size() - 1) == limit) {
+                return input.size() - 1;
+            } else {
+                int counter = 1;
+                while (input.get(input.size() - counter) > limit){
+                    counter++;
+                    if (input.get(input.size() - counter) <= halfway) {
+                        return -1;
+                    }
+                }
+                return input.size() - counter;
+            }
+        }
+    }
+
 }
 class point{
     int c;
