@@ -1,146 +1,218 @@
-package ohno;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collectors;
+
 public class Main {
-    Vector<Integer> input;
+
+    Vector<Vector<Character>> upright;
+    Vector<Vector<Character>> diagonal_one;
+    Vector<Vector<Character>> diagonal_two;
+    String keyword;
+    int rows;
+    int columns;
     public static void main(String[] args) {
-         long startTime = System.nanoTime();
         Main main = new Main();
-        //System.out.println(main.good_triangles(input,circumference));
-        main.input = new Vector<Integer>();
+        main.upright = new Vector<>();
+        InputStreamReader streamReader = new InputStreamReader(System.in);
+        BufferedReader reader = new BufferedReader(streamReader);
         try {
-            FileReader file = new FileReader("/Users/bf000037/IdeaProjects/ccc/src/main/resources/s4.1-06.in");
-            BufferedReader reader = new BufferedReader(file);
-            String specs = reader.readLine().split(" ")[1].strip();
-            String inputs = reader.readLine();
-            String[] array = inputs.split(" ");
-            List<String> distinct = Arrays.stream(array).distinct().collect(Collectors.toList()); // <- for use in ccc
-            Vector distinct_V = new Vector<String>();
-            distinct_V.addAll(distinct);
-            int whyisthiscursed = Integer.parseInt(specs);
-            for (Object item : distinct_V){
-                main.input.add(Integer.parseInt((String) item));
+            int counter = 0;
+            main.keyword = reader.readLine();
+            main.rows = Integer.parseInt(reader.readLine());
+            main.columns = Integer.parseInt(reader.readLine());
+            Vector starts = new Vector<>();
+            for (int i = 0; i < main.rows; i++) {
+                String row = reader.readLine();
+                String[] tmp3 = row.split(" ");
+                Vector tmp2 = new Vector<>();
+                for (int j = 0; j < main.columns; j++) {
+                    tmp2.add(tmp3[j].charAt(0));
+                    if (tmp3[j].charAt(0) == main.keyword.charAt(0)){
+                        starts.add(new Pair(i,j));
+                    }
+                }
+                main.upright.add(tmp2);
             }
-            Collections.sort(main.input);
-            System.out.println(main.input);
-            int things = main.good_triangles(distinct_V, whyisthiscursed);
-            System.out.println(things);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
+            for (Object p :
+                    starts) {
+                Pair p2 = (Pair) p;
+                counter += main.word_exists((byte) 1,false,p2,Dir.NONE);
+            }
+            System.out.println(counter);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        long endTime   = System.nanoTime();
-        long totalTime = endTime - startTime;
-        System.out.println(totalTime);
     }
-    public int good_triangles(Vector<Integer> input, int Circumference) {
-        int counter = 0;
-        final int circumference_half = Circumference >> 1;
-        ListIterator iterator = input.listIterator();
-        int cur;
-        do {
-            int cur_index = iterator.nextIndex();
-            cur = Integer.parseInt((String) iterator.next());
-            ListIterator secondaryIterator = input.listIterator(cur_index);
-            int cur_second;
-            do {
-                cur_second = Integer.parseInt((String) secondaryIterator.next());
-                int lowest_index = find_limit(cur + circumference_half,false,0,circumference_half-1);
-                int highest_index = find_limit(Circumference- cur_second,true,0,Circumference-1);
-                if (lowest_index == highest_index || lowest_index == -1 || highest_index == -1){
-                    continue;
-                }
-                counter += highest_index - lowest_index;
-                // find 3rds
-            } while (cur_second <= circumference_half + cur && secondaryIterator.hasNext());
 
-        } while (cur <= circumference_half);
-        return 1;
-    }
-    public int find_limit(int limit, boolean greater, int low, int high) {
-        int midpoint = low + ((high - low) >> 1);
-        int mid_element = input.get(midpoint);
-        if (midpoint >= high || (high - low) >> 1 == 0 || midpoint >= input.size() - 1){
-            if (greater ? input.get(midpoint) < limit : input.get(midpoint) > limit){
-                return midpoint - 1;
-            } else return -1;
-        }
-        if (mid_element == limit){
-            return midpoint;
-        } else if (mid_element < limit){
-            if (input.get(midpoint+1) > limit){
-                if (greater){
-                    return midpoint;
-                } else {
-                    return midpoint+1;
-                }
-            } else {
-                return find_limit(limit,greater,midpoint,high);// aaaaaaaaaaa stack overflow error
+
+
+
+
+    public int word_exists(byte letter,boolean bent, Pair point, Dir last_dir){
+        char let_to_find = keyword.charAt(letter);
+        boolean last_letter = keyword.length() - (letter + 1) == 0;
+        if (bent) {
+            switch (last_dir){
+                case UP:
+                    if (point.x == 0) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x - 1, point.y,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x - 1, point.y),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case DOWN:
+                        if (point.x == rows - 1) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x + 1, point.y,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x + 1, point.y),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case LEFT:
+                    if (point.y == 0) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x, point.y - 1,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x, point.y - 1),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case RIGHT:
+                    if (point.y == columns - 1) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x, point.y + 1,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x , point.y + 1),last_dir);
+                            }
+                        } else return 0;
+                    }
+            } //check same direction
+        } else {
+            char up =point.x == 0? ' ' : upright.get(point.x-1).get(point.y);
+            char left =point.y == 0 ? ' ' : upright.get(point.x).get(point.y-1);
+            char down = point.x == rows - 1 ? ' ' : upright.get(point.x+1).get(point.y);
+            char right =point.y == columns - 1 ? ' ' : upright.get(point.x).get(point.y+1);
+            Vector<Character> tmp = new Vector<>();
+            tmp.add(up); tmp.add(left); tmp.add(down); tmp.add(right);
+            if (last_dir != Dir.NONE) {
+                tmp.set(Dir.int_representation(last_dir),' '); // turn prev location as blank
             }
-        } else if (mid_element > limit) {
-            if ((input.get(midpoint-1))<limit){
-                if (greater){
-                    return midpoint-1;
-                } else {
-                    return midpoint;
+            int counter = 0;
+            for (int i = 0; i < 4; i++) {
+                char cur = tmp.get(i);
+                if (cur == let_to_find) {
+                    if (last_letter) {
+                        return 1;
+                    }else {
+                        // if not opposite
+                        // and not last letter
+                        Pair next_p = null;
+                        Dir next_d = null;
+                        switch (i){
+                            case 0:
+                                next_p = new Pair(point.x-1,point.y);
+                                next_d = Dir.UP;
+                                break;
+                            case 1:
+                                next_p = new Pair(point.x,point.y-1);
+                                next_d = Dir.LEFT;
+                                break;
+                            case 2:
+                                next_p = new Pair(point.x+1,point.y);
+                                next_d = Dir.DOWN;
+                                break;
+                            case 3:
+                                next_p = new Pair(point.x,point.y+1);
+                                next_d = Dir.RIGHT;
+                                break;
+
+                        }
+                        if (i != Dir.int_representation(Dir.opposite(last_dir)) && last_dir != Dir.NONE){
+                            counter += word_exists((byte) (letter+1),true,next_p,next_d);
+                        }
+                        else {
+                            counter += word_exists((byte) (letter+1),false,next_p,last_dir);
+                        }
+                        // if opposite and not last letter
+                    }
                 }
-            }else {
-                return find_limit(limit,greater,low,midpoint);
+            }
+            return counter;
+        }
+        return 0;
+    }
+
+
+
+    static class Pair {
+        public int x;
+        public int y;
+        public Pair(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+        public char Char_at_point(Main main){
+            return main.upright.get(x).get(y);
+        }
+        public char Char_at_point(int r,int c, Main main){
+            return main.upright.get(r).get(c);
+        }
+    }
+    enum Dir{
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        NONE;
+        public static Dir opposite(Dir dir){
+            switch (dir){
+                case UP:
+                    return DOWN;
+
+                case DOWN:
+                    return UP;
+
+                case LEFT:
+                    return RIGHT;
+
+                case RIGHT:
+                    return LEFT;
+
+            }
+            return NONE;
+        }
+        public static int int_representation(Dir dir){
+            switch (dir){
+                case UP:
+                    return 0;
+                case DOWN:
+                    return 2;
+                case LEFT:
+                    return 1;
+                case RIGHT:
+                    return 3;
+                default:
+                    return -1;
             }
         }
-        return -1;
+
     }
 }
-class point{
-    int c;
-    int r;
-    public point(int c,int r){
-        // constructors
-        this.c = c;
-        this.r = r;
-    }
-    public point(String c, String r){
-        this.c = Integer.parseInt(c);
-        this.r = Integer.parseInt(r);
-    }
-    private point copy(point p){
-        this.c = p.c;
-        this.r = p.r;
-        return this;
-    }
-}
-class Pair{
-    Object a;
-    Object b;
-    public Pair(Object a, Object b){
-        this.a = a;
-        this.b = b;
-    }
-    public Pair copy(Pair from){
-        this.a = from.a;
-        this.b = from.b;
-        return this;
-    }
-}
-//    public static point nearest_edge(int c, int r, int size){
-//        // check diagonal
-//        if (c == r || size + 1 == r + c) {
-//            // if diagonal
-//            int chalf = Math.abs(c - size);
-//            int rhalf = Math.abs(r - size);
-//            int dir=0;
-//            boolean left;
-//            boolean low;
-//            if (chalf >= c) {chalf = c; left = true;} else {left = false;}
-//            if (rhalf >= r) {rhalf = r; low = false;} else {low = true;}
-//            return new point(chalf,0);
-//        }
-//        return new point(23,0);
-//
-//    }
-//    public int intabs(int i){
-//        return i ^ (1 >> 1);
-//    }
