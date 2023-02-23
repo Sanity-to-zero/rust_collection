@@ -118,3 +118,223 @@ mod tests {
     }
 }
 
+/*
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    Vector<Vector<Character>> upright;
+    Vector<Vector<Character>> diagonal_one;
+    Vector<Vector<Character>> diagonal_two;
+    String keyword;
+    int rows;
+    int columns;
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.upright = new Vector<>();
+        InputStreamReader streamReader = new InputStreamReader(System.in);
+        BufferedReader reader = new BufferedReader(streamReader);
+        try {
+            int counter = 0;
+            main.keyword = reader.readLine();
+            main.rows = Integer.parseInt(reader.readLine());
+            main.columns = Integer.parseInt(reader.readLine());
+            Vector starts = new Vector<>();
+            for (int i = 0; i < main.rows; i++) {
+                String row = reader.readLine();
+                String[] tmp3 = row.split(" ");
+                Vector tmp2 = new Vector<>();
+                for (int j = 0; j < main.columns; j++) {
+                    tmp2.add(tmp3[j].charAt(0));
+                    if (tmp3[j].charAt(0) == main.keyword.charAt(0)){
+                        starts.add(new Pair(i,j));
+                    }
+                }
+                main.upright.add(tmp2);
+            }
+
+            for (Object p :
+                    starts) {
+                Pair p2 = (Pair) p;
+                counter += main.word_exists((byte) 1,false,p2,Dir.NONE);
+            }
+            System.out.println(counter);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+    public int word_exists(byte letter,boolean bent, Pair point, Dir last_dir){
+        char let_to_find = keyword.charAt(letter);
+        boolean last_letter = keyword.length() - (letter + 1) == 0;
+        if (bent) {
+            switch (last_dir){
+                case UP:
+                    if (point.x == 0) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x - 1, point.y,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x - 1, point.y),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case DOWN:
+                        if (point.x == rows - 1) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x + 1, point.y,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x + 1, point.y),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case LEFT:
+                    if (point.y == 0) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x, point.y - 1,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x, point.y - 1),last_dir);
+                            }
+                        } else return 0;
+                    }
+                case RIGHT:
+                    if (point.y == columns - 1) {
+                        return 0;
+                    } else {
+                        if (point.Char_at_point(point.x, point.y + 1,this) == let_to_find) {
+                            if (last_letter) {
+                                return 1;
+                            } else {
+                                return word_exists((byte) (letter + 1), true, new Pair(point.x , point.y + 1),last_dir);
+                            }
+                        } else return 0;
+                    }
+            } //check same direction
+        } else {
+            char up =point.x == 0? ' ' : upright.get(point.x-1).get(point.y);
+            char left =point.y == 0 ? ' ' : upright.get(point.x).get(point.y-1);
+            char down = point.x == rows - 1 ? ' ' : upright.get(point.x+1).get(point.y);
+            char right =point.y == columns - 1 ? ' ' : upright.get(point.x).get(point.y+1);
+            Vector<Character> tmp = new Vector<>();
+            tmp.add(up); tmp.add(left); tmp.add(down); tmp.add(right);
+            if (last_dir != Dir.NONE) {
+                tmp.set(Dir.int_representation(last_dir),' '); // turn prev location as blank
+            }
+            int counter = 0;
+            for (int i = 0; i < 4; i++) {
+                char cur = tmp.get(i);
+                if (cur == let_to_find) {
+                    if (last_letter) {
+                        return 1;
+                    }else {
+                        // if not opposite
+                        // and not last letter
+                        Pair next_p = null;
+                        Dir next_d = null;
+                        switch (i){
+                            case 0:
+                                next_p = new Pair(point.x-1,point.y);
+                                next_d = Dir.UP;
+                                break;
+                            case 1:
+                                next_p = new Pair(point.x,point.y-1);
+                                next_d = Dir.LEFT;
+                                break;
+                            case 2:
+                                next_p = new Pair(point.x+1,point.y);
+                                next_d = Dir.DOWN;
+                                break;
+                            case 3:
+                                next_p = new Pair(point.x,point.y+1);
+                                next_d = Dir.RIGHT;
+                                break;
+
+                        }
+                        if (i != Dir.int_representation(Dir.opposite(last_dir)) && last_dir != Dir.NONE){
+                            counter += word_exists((byte) (letter+1),true,next_p,next_d);
+                        }
+                        else {
+                            counter += word_exists((byte) (letter+1),false,next_p,last_dir);
+                        }
+                        // if opposite and not last letter
+                    }
+                }
+            }
+            return counter;
+        }
+        return 0;
+    }
+
+
+
+    static class Pair {
+        public int x;
+        public int y;
+        public Pair(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+        public char Char_at_point(Main main){
+            return main.upright.get(x).get(y);
+        }
+        public char Char_at_point(int r,int c, Main main){
+            return main.upright.get(r).get(c);
+        }
+    }
+    enum Dir{
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        NONE;
+        public static Dir opposite(Dir dir){
+            switch (dir){
+                case UP:
+                    return DOWN;
+
+                case DOWN:
+                    return UP;
+
+                case LEFT:
+                    return RIGHT;
+
+                case RIGHT:
+                    return LEFT;
+
+            }
+            return NONE;
+        }
+        public static int int_representation(Dir dir){
+            switch (dir){
+                case UP:
+                    return 0;
+                case DOWN:
+                    return 2;
+                case LEFT:
+                    return 1;
+                case RIGHT:
+                    return 3;
+                default:
+                    return -1;
+            }
+        }
+
+    }
+}
+ */
